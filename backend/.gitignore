@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# Uploads
+uploads/
+temp/
+
+# Logs
+logs/
+*.log
+
+# Vector DB
+.chroma/
+
+# OS
+.DS_Store
