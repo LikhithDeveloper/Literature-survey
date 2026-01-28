@@ -1,70 +1,137 @@
-# Getting Started with Create React App
+# LIT GENIUS Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React-based frontend for the LIT GENIUS automated literature survey generation platform.
 
-## Available Scripts
+## 🎨 Features
 
-In the project directory, you can run:
+- **Beautiful UI** - Modern, gradient-based design with Material-UI
+- **Authentication** - Login and Signup pages with validation
+- **Dashboard** - View all surveys with status indicators
+- **Survey Creation** - Drag-and-drop file upload with form validation
+- **Real-time Progress** - Socket.IO integration for live agent updates
+- **Survey Viewer** - Formatted display with export options (PDF, DOCX, Markdown)
+- **Responsive Design** - Works on desktop, tablet, and mobile
 
-### `npm start`
+## 📁 Project Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+src/
+├── components/
+│   └── PrivateRoute.js         # Protected route wrapper
+├── context/
+│   └── AuthContext.js          # Global auth state
+├── pages/
+│   ├── Login.js                # Login page
+│   ├── Signup.js               # Signup page
+│   ├── Dashboard.js            # Survey dashboard
+│   ├── CreateSurvey.js         # Survey creation form
+│   ├── SurveyProgress.js       # Real-time progress tracking
+│   └── SurveyViewer.js         # Survey display & export
+├── services/
+│   └── api.js                  # API service with axios
+├── App.js                      # Main app with routing
+├── index.js                    # Entry point
+└── index.css                   # Global styles
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Getting Started
 
-### `npm test`
+### Prerequisites
+- Node.js (v16+)
+- Backend server running on http://localhost:5000
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
 
-### `npm run build`
+```bash
+# Install dependencies
+npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Start development server
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The app will open at http://localhost:3000
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Environment Variables
 
-### `npm run eject`
+Create a `.env` file:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```env
+REACT_APP_API_URL=http://localhost:5000
+REACT_APP_SOCKET_URL=http://localhost:5000
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📦 Dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **react** - UI library
+- **react-router-dom** - Routing
+- **@mui/material** - Material-UI components
+- **axios** - HTTP client
+- **socket.io-client** - Real-time communication
+- **react-dropzone** - File upload
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🎨 Pages
 
-## Learn More
+### 1. Login (`/login`)
+- Email and password authentication
+- Password visibility toggle
+- Link to signup page
+- Beautiful gradient design
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 2. Signup (`/signup`)
+- User registration form
+- Password validation (min 8 chars, uppercase, lowercase, number)
+- Confirm password field
+- Email verification message
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 3. Dashboard (`/dashboard`)
+- List of all user surveys
+- Status indicators (pending, processing, completed, failed)
+- Progress bars for processing surveys
+- Create new survey button
+- View/Delete actions
 
-### Code Splitting
+### 4. Create Survey (`/create-survey`)
+- Topic input (required, min 10 chars)
+- Additional information textarea
+- Drag-and-drop file upload
+- File list with remove option
+- Max 10 files, 10MB each
+- Supports PDF, DOC, DOCX
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 5. Survey Progress (`/survey/:id/progress`)
+- Real-time progress updates via Socket.IO
+- Overall progress percentage
+- Agent pipeline status
+- Estimated time remaining
+- Auto-redirect to viewer when complete
 
-### Analyzing the Bundle Size
+### 6. Survey Viewer (`/survey/:id`)
+- Formatted survey content
+- Metadata (topic, dates, word count, paper count)
+- Quality scores (verification, originality)
+- Export options (PDF, DOCX, Markdown)
+- Print functionality
+- Citations and references
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🔐 Authentication Flow
 
-### Making a Progressive Web App
+1. User signs up → Email verification sent
+2. User verifies email (manual or via link)
+3. User logs in → JWT token stored in localStorage
+4. Token sent with all API requests
+5. Auto-logout on 401 (unauthorized)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🔄 Real-time Updates
 
-### Advanced Configuration
+Socket.IO events:
+- `join_survey` - Join survey room
+- `progress_update` - Progress percentage and message
+- `agent_started` - Agent begins processing
+- `agent_completed` - Agent finishes
+- `survey_completed` - Survey generation complete
+- `error` - Error occurred
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Built with ❤️ using React and Material-UI**
